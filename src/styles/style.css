@@ -1,0 +1,22 @@
+textarea {
+  resize: vertical;
+}
+body {
+  overflow-x: hidden;
+}
+.nav-brand-logo-mobile.nav-light {
+  color: unset;
+  -webkit-text-fill-color: unset;
+}
+@media screen and (max-width: 991px) {
+  .navbar .nav-wrapper .nav-button-language-wrapper {
+    pointer-events: none;
+  }
+  .navbar .nav-wrapper .nav-button-language-wrapper ._1gh-button-wrapper,
+  .navbar .nav-wrapper .nav-button-language-wrapper .nav-language a {
+    pointer-events: auto;
+  }
+  .navbar .nav-wrapper .nav-menu > div {
+    overflow-x: hidden;
+  }
+}
