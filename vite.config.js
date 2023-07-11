@@ -16,9 +16,10 @@ export default defineConfig({
     minify: true,
     manifest: false,
     assetsDir: '',
+    cssCodeSplit: false,
     rollupOptions: {
       input: {
-        consent_mode: resolve(__dirname, 'src/scripts/consent.js'),
+        consent: resolve(__dirname, 'src/scripts/consent.js'),
         main: resolve(__dirname, 'src/scripts/main.js'),
       },
       output: {
