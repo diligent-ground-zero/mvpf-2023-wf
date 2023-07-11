@@ -1,13 +1,3 @@
-textarea {
-  resize: vertical;
-}
-body {
-  overflow-x: hidden;
-}
-.nav-brand-logo-mobile.nav-light {
-  color: unset;
-  -webkit-text-fill-color: unset;
-}
 @media screen and (max-width: 991px) {
   .navbar .nav-wrapper .nav-button-language-wrapper {
     pointer-events: none;
@@ -19,4 +9,14 @@ body {
   .navbar .nav-wrapper .nav-menu > div {
     overflow-x: hidden;
   }
+}
+textarea {
+  resize: vertical;
+}
+body {
+  overflow-x: hidden;
+}
+.nav-brand-logo-mobile.nav-light {
+  color: unset;
+  -webkit-text-fill-color: unset;
 }
