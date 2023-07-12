@@ -1,0 +1,1 @@
+function o(e){["en","de"].includes(e)&&document.querySelectorAll(".positions-cms-list .positions-cms-item .positions-row").forEach(function(s){var i;const t=(i=s.lastElementChild)==null?void 0:i.firstChild;t&&t.setAttribute("href",t.getAttribute("href")+`?display=${e}`)})}export{o as default};

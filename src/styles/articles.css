@@ -1,0 +1,6 @@
+.sources-richtext {
+    word-break: break-word;
+}
+.insights_card-container:hover > .insights-card_thumbnail > .insights-image-animation-block {
+	opacity:50%;
+}

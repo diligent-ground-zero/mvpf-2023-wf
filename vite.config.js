@@ -19,15 +19,15 @@ export default defineConfig({
     cssCodeSplit: false,
     rollupOptions: {
       input: {
-        consent: resolve(__dirname, 'src/scripts/consent.js'),
+        consent: resolve(__dirname, 'src/scripts/global/consent.js'),
         main: resolve(__dirname, 'src/scripts/main.js'),
+        lanugage_util: resolve(__dirname, 'src/scripts/global/languageHelper.js'),
+        tabs_util: resolve(__dirname, 'src/scripts/insights/tabUtils.js'),
+        careers_util: resolve(__dirname, 'src/scripts/careers/careers_util.js')
       },
-      output: {
-        compact: true,
-        globals: {
-          jquery: '$',
-        },
+      output:{
       },
+      preserveEntrySignatures: 'exports-only',
       external: ['jquery'],
     },
   },
