@@ -24,17 +24,24 @@ export function mountOnResizeListener() {
   });
 
   const triggerNavMenuClose = () => {
-    if (document.querySelector('nav[data-nav-menu-open]')) {
-      document.querySelector('.nav-hamburger-icon').click();
+    if (
+      document.querySelector('nav[data-nav-menu-open]') ||
+      (window.innerWidth > 992 && document.body.style.overflow === 'hidden')
+    ) {
+      document.querySelector('.nav-menu-button').click();
     }
   };
 }
 
 export function saveCampaignUtmPatameters() {
   const utms = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content'];
-  const urlParams = new URLSearchParams(window.location.search);
   const filteredSearchParamStrings = new URLSearchParams();
-  for (const [key, value] of urlParams) {
+  const searchParams =
+    window.location.search.length === 0
+      ? getParamsFromSessionStorage(utms, filteredSearchParamStrings)
+      : window.location.search;
+  const searchParamsObject = new URLSearchParams(searchParams);
+  for (const [key, value] of searchParamsObject) {
     if (utms.includes(key)) {
       sessionStorage.setItem(key, value);
       filteredSearchParamStrings.append(key, value);
@@ -43,7 +50,17 @@ export function saveCampaignUtmPatameters() {
   populateHiddenFormFields(filteredSearchParamStrings);
 }
 
-export function populateHiddenFormFields(filteredSearchParamStrings) {
+function getParamsFromSessionStorage(utms, filteredSearchParamStrings) {
+  for (const paramName of utms) {
+    const parameterValue = sessionStorage.getItem(paramName);
+    if (parameterValue !== null) {
+      filteredSearchParamStrings.append(paramName, parameterValue);
+    }
+  }
+  return filteredSearchParamStrings.toString();
+}
+
+function populateHiddenFormFields(filteredSearchParamStrings) {
   const utmParametersToString = filteredSearchParamStrings.toString();
   document.querySelectorAll('input[type="text"][name="utm-parameters"].utm-parameters').forEach((input) => {
     input.value = utmParametersToString;
