@@ -6,7 +6,7 @@ The Website staging link is available here: https://mvpf-rebrush-2023.webflow.io
 
 **The project includes:**
 
-- Only vanilla Javascript
+- Only Vanilla Javascript (global and Page specific outputs generated in `/dist`) 
 - A Minimal Vite setup for bundling and asset handling
 - A minimal Prettier & ESLint setup
 
@@ -15,14 +15,15 @@ The Website staging link is available here: https://mvpf-rebrush-2023.webflow.io
 1. Standard setup `yarn && yarn dev`.
 2. A local dev server will be spun up on `localhost:3000` 
 3. To develop inside the Webflow designer select a file like `main.js`
-and include it in the `head` section of the desiger like in the example:
+and include it in the `head` section of the Project or Page settings:
+
+`<script type="module" src="http://localhost:3000/src/scripts/main.js">`
 
 
 ## Deployment 🚀
 
 The scripts and styles are intended to be deployed via CDN.
 We used JSdelivr's (https://www.jsdelivr.com/) free CDN Github mirroring to host and serve the projects files in `/dist`.
-
 
 
 1. `yarn build`, push changes to Github and create a version Tag
