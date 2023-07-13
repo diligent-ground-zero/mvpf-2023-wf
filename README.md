@@ -17,7 +17,7 @@ The Website staging link is available here: https://mvpf-rebrush-2023.webflow.io
 3. To develop inside the Webflow designer select a file like `main.js`
 and include it in the `head` section of the Project or Page settings:
 
-`<script type="module" src="http://localhost:3000/src/scripts/main.js">`
+`<script type="module" src="http://localhost:3000/src/scripts/main.js"></script>`
 
 
 ## Deployment 🚀
