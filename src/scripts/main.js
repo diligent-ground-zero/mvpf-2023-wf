@@ -8,6 +8,7 @@ import {
   populateHiddenInputFields,
   mountOnResizeListener,
   saveCampaignUtmPatameters,
+  initHeaderScrollClassScript
 } from './global/globalFunctions';
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -15,4 +16,5 @@ document.addEventListener('DOMContentLoaded', () => {
   populateHiddenInputFields();
   mountOnResizeListener();
   saveCampaignUtmPatameters();
+  initHeaderScrollClassScript();
 });

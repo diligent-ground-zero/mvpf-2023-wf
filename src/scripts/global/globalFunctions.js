@@ -1,3 +1,15 @@
+const debounce = (fn) => {
+  let frame;
+  return (...params) => {
+    if (frame) { 
+      cancelAnimationFrame(frame);
+    }
+    frame = requestAnimationFrame(() => {
+      fn(...params);
+    });
+  } 
+};
+
 export function setCurrentYearLabel() {
   const yearSelector = '[fs-hacks-element="footer-year"]';
   const yearSpan = document.querySelector(yearSelector);
@@ -14,15 +26,6 @@ export function populateHiddenInputFields() {
 }
 
 export function mountOnResizeListener() {
-  let resizeTimeout;
-
-  window.addEventListener('resize', function () {
-    clearTimeout(resizeTimeout);
-    resizeTimeout = setTimeout(function () {
-      triggerNavMenuClose();
-    }, 50);
-  });
-
   const triggerNavMenuClose = () => {
     if (
       document.querySelector('nav[data-nav-menu-open]') ||
@@ -31,6 +34,9 @@ export function mountOnResizeListener() {
       document.querySelector('.nav-menu-button').click();
     }
   };
+
+  window.addEventListener('resize', debounce(triggerNavMenuClose), { passive: true });
+
 }
 
 export function saveCampaignUtmPatameters() {
@@ -69,4 +75,19 @@ function populateHiddenFormFields(filteredSearchParamStrings) {
   document.querySelectorAll('input[type="text"][name="pathname-field"].pathname-field').forEach((input) => {
     input.value = window.location.pathname;
   });
+}
+
+export function initHeaderScrollClassScript() {
+  const navbar = document.querySelector('div.navbar');  
+  const navbarHeight = navbar.clientHeight;
+
+  const adjustHeaderClass = () => {
+    if((window.scrollY >= navbarHeight) && !navbar.classList.contains('--scrolled')) {
+      navbar.classList.add('--scrolled');
+    } else if(window.scrollY === 0){
+      navbar.classList.remove('--scrolled');
+    }
+  }
+  document.addEventListener('scroll', debounce(adjustHeaderClass), { passive: true });
+  adjustHeaderClass();
 }
