@@ -1,15 +1,3 @@
-const debounce = (fn) => {
-  let frame;
-  return (...params) => {
-    if (frame) { 
-      cancelAnimationFrame(frame);
-    }
-    frame = requestAnimationFrame(() => {
-      fn(...params);
-    });
-  } 
-};
-
 export function setCurrentYearLabel() {
   const yearSelector = '[fs-hacks-element="footer-year"]';
   const yearSpan = document.querySelector(yearSelector);
@@ -26,6 +14,9 @@ export function populateHiddenInputFields() {
 }
 
 export function mountOnResizeListener() {
+  let hasResized = false;
+  let lastScreenWidth = window.innerWidth;
+
   const triggerNavMenuClose = () => {
     if (
       document.querySelector('nav[data-nav-menu-open]') ||
@@ -35,8 +26,23 @@ export function mountOnResizeListener() {
     }
   };
 
-  window.addEventListener('resize', debounce(triggerNavMenuClose), { passive: true });
+  const render = () => {
+    const pageX = window.innerWidth;
+    let hasResized = pageX !== lastScreenWidth;
+    if (document.querySelector('nav[data-nav-menu-open]') && document.body.style.overflow === 'hidden' && hasResized) {
+      document.querySelector('.nav-menu-button').click();
+    }
+    hasResized = false;
+    lastScreenWidth = pageX;
+  };
 
+  const onResize = () => {
+    if (!hasResized) {
+      window.requestAnimationFrame(render);
+    }
+    window.requestAnimationFrame(onResize);
+  };
+  onResize();
 }
 
 export function saveCampaignUtmPatameters() {
@@ -78,16 +84,37 @@ function populateHiddenFormFields(filteredSearchParamStrings) {
 }
 
 export function initHeaderScrollClassScript() {
-  const navbar = document.querySelector('div.navbar');  
-  const navbarHeight = navbar.clientHeight;
+  const header = document.querySelector('div.navbar');
+  const scrollingClass = '--scrolled';
+  let hasScrolled = false;
+  let lastScrollTop = 0;
 
-  const adjustHeaderClass = () => {
-    if((window.scrollY >= navbarHeight) && !navbar.classList.contains('--scrolled')) {
-      navbar.classList.add('--scrolled');
-    } else if(window.scrollY === 0){
-      navbar.classList.remove('--scrolled');
+  const config = {
+    scrollingClass: '--scrolled',
+    downTolerance: 4,
+  };
+
+  const render = () => {
+    const pageY = window.scrollY;
+
+    if (pageY > lastScrollTop + config.downTolerance) {
+      header.classList.add(scrollingClass);
     }
-  }
-  document.addEventListener('scroll', debounce(adjustHeaderClass), { passive: true });
-  adjustHeaderClass();
+
+    if (pageY <= config.downTolerance) {
+      header.classList.remove(scrollingClass);
+    }
+
+    lastScrollTop = pageY;
+    hasScrolled = false;
+  };
+
+  const onScroll = () => {
+    if (!hasScrolled) {
+      window.requestAnimationFrame(render);
+    }
+    hasScrolled = true;
+    window.requestAnimationFrame(onScroll);
+  };
+  onScroll();
 }

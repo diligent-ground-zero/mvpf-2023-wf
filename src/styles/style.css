@@ -23,12 +23,12 @@ body {
 .navbar.--scrolled {
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 }
-.navbar.nav-light.--scrolled{
-  background-color:white !important;
+.navbar.nav-light.--scrolled {
+  background-color: white !important;
 }
-.navbar.nav-dark.--scrolled{
-  background-color:#060021 !important;
+.navbar.nav-dark.--scrolled {
+  background-color: #060021 !important;
 }
-.navbar.nav-green.--scrolled{
-  background-color:#0029ff !important;
+.navbar.nav-green.--scrolled {
+  background-color: #0029ff !important;
 }

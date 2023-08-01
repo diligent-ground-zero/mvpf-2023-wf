@@ -8,7 +8,7 @@ import {
   populateHiddenInputFields,
   mountOnResizeListener,
   saveCampaignUtmPatameters,
-  initHeaderScrollClassScript
+  initHeaderScrollClassScript,
 } from './global/globalFunctions';
 
 document.addEventListener('DOMContentLoaded', () => {
