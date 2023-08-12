@@ -46,24 +46,24 @@ export function mountOnResizeListener() {
 }
 
 export function saveCampaignUtmPatameters() {
-  const utms = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content'];
-  const filteredSearchParamStrings = new URLSearchParams();
+  if (window.location.search.length === 0 && sessionStorage.length === 0) return;
+
+  const validUtms = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content'];
+
   const searchParams =
-    window.location.search.length === 0
-      ? getParamsFromSessionStorage(utms, filteredSearchParamStrings)
-      : window.location.search;
+    window.location.search.length === 0 ? getParamsFromSessionStorage(validUtms) : window.location.search;
   const searchParamsObject = new URLSearchParams(searchParams);
   for (const [key, value] of searchParamsObject) {
-    if (utms.includes(key)) {
+    if (validUtms.includes(key)) {
       sessionStorage.setItem(key, value);
-      filteredSearchParamStrings.append(key, value);
     }
   }
-  populateHiddenFormFields(filteredSearchParamStrings);
+  populateHiddenFormFields(searchParams);
 }
 
-function getParamsFromSessionStorage(utms, filteredSearchParamStrings) {
-  for (const paramName of utms) {
+function getParamsFromSessionStorage(validUtms) {
+  const filteredSearchParamStrings = new URLSearchParams();
+  for (const paramName of validUtms) {
     const parameterValue = sessionStorage.getItem(paramName);
     if (parameterValue !== null) {
       filteredSearchParamStrings.append(paramName, parameterValue);
@@ -72,10 +72,9 @@ function getParamsFromSessionStorage(utms, filteredSearchParamStrings) {
   return filteredSearchParamStrings.toString();
 }
 
-function populateHiddenFormFields(filteredSearchParamStrings) {
-  const utmParametersToString = filteredSearchParamStrings.toString();
+function populateHiddenFormFields(searchParams) {
   document.querySelectorAll('input[type="text"][name="utm-parameters"].utm-parameters').forEach((input) => {
-    input.value = utmParametersToString;
+    input.value = searchParams;
   });
 
   document.querySelectorAll('input[type="text"][name="pathname-field"].pathname-field').forEach((input) => {

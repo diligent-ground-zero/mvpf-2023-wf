@@ -32,3 +32,6 @@ body {
 .navbar.nav-green.--scrolled {
   background-color: #0029ff !important;
 }
+.aspect-1-3 {
+  aspect-ratio: 1.3/1;
+}
