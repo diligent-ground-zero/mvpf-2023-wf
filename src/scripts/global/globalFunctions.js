@@ -66,7 +66,7 @@ function getParamsFromSessionStorage(validUtms) {
   for (const paramName of validUtms) {
     const parameterValue = sessionStorage.getItem(paramName);
     if (parameterValue !== null) {
-      filteredSearchParamStrings.append(paramName, parameterValue);
+      filteredSearchParamStrings.set(paramName, parameterValue);
     }
   }
   return filteredSearchParamStrings.toString();
