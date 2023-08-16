@@ -1,1 +1,0 @@
-function t(){window.dataLayer=window.dataLayer||[];function a(){dataLayer.push(arguments)}a("consent","default",{ad_storage:"denied",analytics_storage:"denied",wait_for_update:5e3}),a("set","url_passthrough",!0),a("set","ads_data_redaction",!0)}t();

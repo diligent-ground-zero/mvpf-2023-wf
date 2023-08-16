@@ -5,7 +5,7 @@ function setDefaultConsent() {
   }
   gtag('consent', 'default', {
     ad_storage: 'denied',
-    analytics_storage: 'denied',
+    analytics_storage: 'granted',
     wait_for_update: 5000,
   });
   gtag('set', 'url_passthrough', true);
